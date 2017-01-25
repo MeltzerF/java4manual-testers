@@ -1,6 +1,6 @@
 package com.db.edu.etl;
 
-import org.slf4j.Logger;
+import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 
 import static java.lang.Math.round;
@@ -8,7 +8,7 @@ import static java.lang.Math.subtractExact;
 
 
 public class Controller {
-    private static final Logger logger = LoggerFactory.getLogger(Controller.class);
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(Controller.class);
 
     public static DTO transform(RecordType recordType, String[] rawDataRecords) {
         int counter = 0;
