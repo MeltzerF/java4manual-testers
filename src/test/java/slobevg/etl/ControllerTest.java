@@ -1,6 +1,6 @@
 package slobevg.etl;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import slobevg.etl.data.User;
 import slobevg.etl.exceptions.EtlException;
 import slobevg.etl.exceptions.ExtractorException;
@@ -11,6 +11,8 @@ import slobevg.etl.load.Loader;
 import static org.mockito.Mockito.*;
 
 public class ControllerTest {
+
+
     @Test
     public void shouldDoEtlOperationWhenNoExceptions() throws ExtractorException, EtlException, LoaderException {
         //region Given
@@ -19,6 +21,7 @@ public class ControllerTest {
                 new User("1", "user1"),
                 new User("1", "user2")
         };
+
         when(extractorStub.extract()).thenReturn(usersDummy);
         final Loader loaderMock = mock(Loader.class);
         final Controller etlcontroller = new Controller(
@@ -36,7 +39,7 @@ public class ControllerTest {
         //endregion
     }
 
-    @Test (expected = ExtractorException.class)
+    @Test (expected=EtlException.class)
     public void shouldDoEtlOperationWhenExtractorExceptionIsThrown() throws ExtractorException, EtlException, LoaderException {
         //region Given
         final Extractor extractorStub = mock(Extractor.class);
@@ -56,5 +59,7 @@ public class ControllerTest {
         etlcontroller.doEtl();
         //endregion
     }
+
+
 
 }
