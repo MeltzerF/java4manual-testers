@@ -8,11 +8,13 @@ import slobevg.etl.exceptions.LoaderException;
 import slobevg.etl.extract.Extractor;
 import slobevg.etl.load.Loader;
 
+import java.util.Collection;
+
 public class Controller {
     private Extractor extractor;
-    private Loader[] loaders;
+    private Collection<Loader> loaders;
 
-    public Controller(Extractor extractor, Loader[] loaders) {
+    public Controller(Extractor extractor, Collection<Loader> loaders) {
         this.extractor = extractor;
         this.loaders = loaders;
     }
@@ -25,11 +27,11 @@ public class Controller {
         this.extractor = extractor;
     }
 
-    public Loader[] getLoaders() {
+    public Collection<Loader> getLoaders() {
         return loaders;
     }
 
-    public void setLoaders(Loader[] loaders) {
+    public void setLoaders(Collection<Loader> loaders) {
         this.loaders = loaders;
     }
 

@@ -8,6 +8,9 @@ import slobevg.etl.exceptions.LoaderException;
 import slobevg.etl.extract.Extractor;
 import slobevg.etl.load.Loader;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import static org.mockito.Mockito.*;
 
 public class ControllerTest {
@@ -23,10 +26,12 @@ public class ControllerTest {
         };
 
         when(extractorStub.extract()).thenReturn(usersDummy);
+        Collection<Loader> loaderList = new ArrayList<Loader>();
         final Loader loaderMock = mock(Loader.class);
+        loaderList.add(loaderMock);
         final Controller etlcontroller = new Controller(
                 extractorStub,
-                new Loader[] {loaderMock}
+                loaderList
         );
         //endregion
 
@@ -48,10 +53,12 @@ public class ControllerTest {
                 new User("1", "user2")
         };
         doThrow(new ExtractorException()).when(extractorStub).extract();
+        Collection<Loader> loaderList = new ArrayList<Loader>();
         final Loader loaderMock = mock(Loader.class);
+        loaderList.add(loaderMock);
         final Controller etlcontroller = new Controller(
                 extractorStub,
-                new Loader[] {loaderMock}
+                loaderList
         );
         //endregion
 
