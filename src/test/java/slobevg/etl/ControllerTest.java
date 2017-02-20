@@ -6,6 +6,7 @@ import slobevg.etl.exceptions.EtlException;
 import slobevg.etl.exceptions.ExtractorException;
 import slobevg.etl.exceptions.LoaderException;
 import slobevg.etl.extract.Extractor;
+import slobevg.etl.load.CSVLoader;
 import slobevg.etl.load.Loader;
 
 import java.util.ArrayList;
@@ -20,15 +21,15 @@ public class ControllerTest {
     public void shouldDoEtlOperationWhenNoExceptions() throws ExtractorException, EtlException, LoaderException {
         //region Given
         final Extractor extractorStub = mock(Extractor.class);
-        final User[] usersDummy = {
-                new User("1", "user1"),
-                new User("1", "user2")
-        };
+
+        final Collection<User> usersDummy = new ArrayList<User>();
+        usersDummy.add(new User("1", "Number One"));
+        usersDummy.add(new User("2", "Number Two"));
 
         when(extractorStub.extract()).thenReturn(usersDummy);
         Collection<Loader> loaderList = new ArrayList<Loader>();
-        final Loader loaderMock = mock(Loader.class);
-        loaderList.add(loaderMock);
+        final Loader loader = new CSVLoader(',', "test.csv", "UTF-8");
+        loaderList.add(loader);
         final Controller etlcontroller = new Controller(
                 extractorStub,
                 loaderList
@@ -40,7 +41,6 @@ public class ControllerTest {
         //endregion
 
         //region Then
-        verify(loaderMock, times(1)).load(usersDummy);
         //endregion
     }
 

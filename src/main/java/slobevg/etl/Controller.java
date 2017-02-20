@@ -37,10 +37,9 @@ public class Controller {
 
     public void doEtl() throws EtlException {
         try {
-            User[] extractedUserArray = extractor.extract();
-            final User[] extractedUsers = extractor.extract();
+            final Collection<User> extractedUsers = extractor.extract();
                         for (Loader loader : loaders) {
-                                loader.load(extractedUserArray);
+                                loader.load(extractedUsers);
                             }
         } catch (ExtractorException | LoaderException e) {
             throw new EtlException("Etl exception", e);
