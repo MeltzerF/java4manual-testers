@@ -4,16 +4,23 @@ import java.sql.*;
  * Created by meltzer on 15.02.17.
  */
 public class jbdcdemo {
+    public static String driver = "org.apache.derby.jdbc.EmbeddedDriver";
+    public static String protocol = "jdbc:derby:";
     public static void main(String[] args) throws ClassNotFoundException {
-        Class.forName("org.apache.derby.jdbc.ClientDriver");
+        try {
+            Class.forName(driver).newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        //Class.forName("org.apache.derby.jdbc.ClientDriver");
         Connection connectionWrapper = null;
         //try with resources (need to implement closable of autoclosable)
         try (
             Connection connection
-                    = DriverManager.getConnection(
-                            "jdbc:derby://localhost:1527/demo;create=true",
-                            "APP",
-                            "APP");
+                    = DriverManager.getConnection(protocol + "derbyDB;create=true")
                 ) {
             connectionWrapper = connection;
             connection.setAutoCommit(false);
